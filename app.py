@@ -9,7 +9,7 @@ from prod_to_dev import prod_to_dev
 # streamlit run app.py
 
 
-st.title("TM1py Demo for TM1 Horizon")
+st.title("TM1py Demo with Streamlit")
 forecast_expander = st.expander("DEMO 1", expanded=True)
 with forecast_expander:
     st.button(label="Forecast Sales", use_container_width=True, on_click=forecast)
