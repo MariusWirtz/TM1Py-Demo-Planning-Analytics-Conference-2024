@@ -6,13 +6,18 @@ from TM1py import TM1Service
 from constants import prod_params
 
 
-def calculate_irr():
+def calculate_irr(investment=None):
+    if not investment:
+        column_selection = "{TM1SubsetAll([Investment])}"
+    else:
+        column_selection = "{[Investment].[" + investment + "]}"
+
     with TM1Service(**prod_params) as tm1:
         # read investment cashflows from TM1
-        mdx = """
+        mdx = f"""
         SELECT 
-        NON EMPTY {Tm1SubsetAll([Investment Period])} ON ROWS,
-        NON EMPTY {TM1SubsetAll([Investment])} ON COLUMNS
+        NON EMPTY {{Tm1SubsetAll([Investment Period])}} ON ROWS,
+        NON EMPTY {column_selection} ON COLUMNS
         FROM [Investments]
         WHERE ([Year].[2023], [InvestmentsMeasure].[Cashflow])
         """

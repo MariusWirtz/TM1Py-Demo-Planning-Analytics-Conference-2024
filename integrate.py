@@ -51,3 +51,7 @@ def integrate():
         # create dimension and write attribute values
         tm1.dimensions.update_or_create(dimension=dimension)
         tm1.cells.write("}ElementAttributes_" + dimension.name, cells, use_blob=True)
+
+
+if __name__ == "__main__":
+    integrate()
