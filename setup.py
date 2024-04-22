@@ -37,7 +37,7 @@ for (country, group) in df[["Country", "CountryGroup"]].itertuples(index=False):
 
 def build_investments_cube(tm1: TM1Service):
     hierarchy = Hierarchy(name="Year", dimension_name="Year")
-    for element in range(2000, 2040, 1):
+    for element in range(2010, 2030, 1):
         hierarchy.add_element(str(element), "Numeric")
     dimension = Dimension(name="Year", hierarchies=[hierarchy])
     tm1.dimensions.update_or_create(dimension)
@@ -266,9 +266,9 @@ with TM1Service(**prod_params) as tm1_prod:
         drop_sales_cubes(tm1_dev)
 
         # cube: year, relative year, investment, measure(cashflow, NPV, IRR)
-        if tm1_prod.cubes.exists("Investments"):
-            tm1_prod.cubes.delete("Investments")
-        build_investments_cube(tm1_prod)
+    if tm1_prod.cubes.exists("Investments"):
+        tm1_prod.cubes.delete("Investments")
+    build_investments_cube(tm1_prod)
 
-        if tm1_prod.dimensions.exists("Salesforce Account"):
-            tm1_prod.dimensions.delete("Salesforce Account")
+    if tm1_prod.dimensions.exists("Salesforce Product"):
+        tm1_prod.dimensions.delete("Salesforce Product")

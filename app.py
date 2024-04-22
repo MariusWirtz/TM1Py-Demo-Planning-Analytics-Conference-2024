@@ -19,7 +19,7 @@ EMOJIS = {
 NAVIGATION_ENTRIES = {
     "🎯 Forecast",
     "📊 Calculate IRR",
-    "📥 Load Customers From Salesforce",
+    "📥 Load Products From Salesforce",
     "🔁 Deploy File to PAoC"
 }
 
@@ -83,8 +83,8 @@ if nav_selection == "🎯 Forecast":
         on_click=forecast,
         args=[start_period, end_period, region, product])
 
-if nav_selection == "📥 Load Customers From Salesforce":
-    st.button(label="Load Salesforce Accounts", use_container_width=True, on_click=integrate)
+if nav_selection == "📥 Load Products From Salesforce":
+    st.button(label="Load Salesforce Products", use_container_width=True, on_click=integrate)
 
 if nav_selection == "📊 Calculate IRR":
     st.button(label="Calculate IRR For All", use_container_width=True, on_click=calculate_irr, args=[None])

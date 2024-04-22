@@ -5,7 +5,7 @@ from simple_salesforce import Salesforce
 
 from constants import prod_params
 
-CUSTOMER_DIMENSION_NAME = "Salesforce Customer"
+CUSTOMER_DIMENSION_NAME = "Salesforce Products"
 
 
 def integrate():
@@ -16,9 +16,7 @@ def integrate():
         security_token=os.environ.get("SF_TOKEN"))
 
     # Define query
-    query = """
-    SELECT Id, Account.Name, Phone, Type FROM Account
-    """
+    query = "SELECT Id, Name, ProductCode, Age__c, Players__c From Product2"
 
     # query data
     data = sf.query(query)
@@ -31,8 +29,8 @@ def integrate():
 
     # add element attributes to hierarchy
     hierarchy.add_element_attribute("Id", "Alias")
-    hierarchy.add_element_attribute("Phone", "String")
-    hierarchy.add_element_attribute("Type", "String")
+    hierarchy.add_element_attribute("Age", "String")
+    hierarchy.add_element_attribute("Players", "String")
 
     cells = dict()
     for record in records:
@@ -41,8 +39,8 @@ def integrate():
 
         # write attribute values
         cells[record['Name'], "Id"] = str(record["Id"])
-        cells[record['Name'], "Phone"] = str(record["Phone"])
-        cells[record['Name'], "Type"] = str(record["Type"])
+        cells[record['Name'], "Age"] = str(record["Age__c"])
+        cells[record['Name'], "Players"] = str(record["Players__c"])
 
     dimension = Dimension(name=CUSTOMER_DIMENSION_NAME, hierarchies=[hierarchy])
 
